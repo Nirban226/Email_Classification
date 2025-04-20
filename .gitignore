@@ -1,14 +1,9 @@
 __pycache__/
-*.py[cod]
+*.pyc
+*.DS_Store
 *.log
-*.pkl
-*.pt
+.cache/
+output/
+venv/
 *.ipynb
-.DS_Store
-.vscode/
-.env
-*.zip
-*.tar.gz
-*.csv
-*.pdf
 
