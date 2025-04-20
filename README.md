@@ -1,12 +1,6 @@
----
-title: Email Classification
-emoji: 🏢
-colorFrom: purple
-colorTo: red
-sdk: gradio
-sdk_version: 5.25.2
-app_file: app.py
-pinned: false
----
+# Akaike Email Classification API
 
-Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
+A FastAPI-based solution that:
+- Detects and masks PII
+- Classifies support emails using a fine-tuned BERT model
+
