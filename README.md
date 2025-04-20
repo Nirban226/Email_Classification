@@ -1,56 +1,108 @@
-# Email Classification 
+---
+title: Akaike Email Classifier
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+app_file: api/api.py
+pinned: true
+---
 
-A FastAPI-based solution that:
+# Akaike Email Classification API
 
-- Detects and masks PII (Personally Identifiable Information)
-- Classifies the intent of support emails using a fine-tuned BERT model
+[Live Demo on Hugging Face](https://nirban2206-email-classification.hf.space/docs)
 
-## 🔧 Features
+---
 
-- Regex + spaCy-based PII masking for 8 entity types
-- Tiny BERT model (prajjwal1/bert-tiny) for efficient classification
-- REST API built with FastAPI
-- Returns masked text + original PII + category
+## What This Does
 
-## 🚀 How to Run
+This project provides a production-ready REST API that:
 
-### 1. Install dependencies
+- Detects and masks sensitive PII (personally identifiable information)  
+- Classifies support emails into categories using a fine-tuned BERT-tiny model  
+- Returns a structured and masked output for downstream use
+
+---
+
+## Features
+
+- PII Masking using Regex + spaCy NER
+- Tiny BERT-based classifier for email categories
+- Fast and efficient: Runs even on Hugging Face Spaces (CPU)
+- Swagger UI for testing your endpoint at `/docs`
+- Fully Dockerized for portability
+
+---
+
+## Live Demo
+
+Visit your Swagger UI here:  
+https://nirban2206-email-classification.hf.space/docs
+
+---
+
+## Sample Request
+
+```bash
+curl -X 'POST' \
+  'https://nirban2206-email-classification.hf.space/classify' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "email": "Hi, my name is John Doe and my phone is 9876543210."
+  }'
 
 
+---
+
+Sample Response
+
+{
+  "input_email_body": "Hi, my name is John Doe and my phone is 9876543210.",
+  "list_of_masked_entities": [
+    {
+      "position": [40, 54],
+      "classification": "phone_number",
+      "entity": "9876543210"
+    },
+    {
+      "position": [15, 26],
+      "classification": "full_name",
+      "entity": "John Doe"
+    }
+  ],
+  "masked_email": "Hi, my name is [full_name] and my phone is [phone_number].",
+  "category_of_the_email": "Incident"
+}
+How to Run Locally
+
+# 1. Clone the Repository
+git clone https://huggingface.co/spaces/Nirban2206/email-classification
+cd email-classification
+
+# 2. Install Requirements
 pip install -r requirements.txt
 python -m spacy download en_core_web_sm
-2. Train the Model (Optional)
-python train_bert.py
-3. Start the API
-uvicorn api.api:app --reload
-Visit http://localhost:8000/docs for Swagger UI.
 
-🎯 API Endpoint
+# 3. Start the API Locally
+uvicorn app:app --reload
+Project Structure
 
-POST /classify
-Request Body:
-
-{
-  "email": "Hi, I’m John Doe. My email is johndoe@gmail.com and phone is 9876543210."
-}
-Response:
-
-{
-  "input_email_body": "Hi, I’m John Doe. My email is johndoe@gmail.com and phone is 9876543210.",
-  "list_of_masked_entities": [...],
-  "masked_email": "Hi, I’m [full_name]. My email is [email] and phone is [phone_number]",
-  "category_of_the_email": "Request"
-}
-📁 Project Structure
-
+.
+├── app.py                     # FastAPI entry point
 ├── api/
-│   └── api.py
+│   └── api.py                 # (Optional alternate entry point)
 ├── models/
-│   └── bert_model.py
+│   ├── bert_model/            # Trained model + tokenizer files
+│   └── bert-tiny-tokenizer/   # Tokenizer for inference
 ├── utils/
-│   └── masking.py
-├── data/
-│   └── combined_emails_with_natural_pii.csv
-├── train_bert.py
+│   └── masking.py             # PII masking logic
+├── train_bert.py              # Training script
 ├── requirements.txt
-├── README.md
+├── Dockerfile
+└── README.md
+Author
+
+Built by Reddi Nirban Kumar
+As part of the Akaike Technologies Email Classification Assignment
+
+
