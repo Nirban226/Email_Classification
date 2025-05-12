@@ -1,4 +1,4 @@
-## Akaike Technologies Email Classifier
+##  Email Classifier
 
 [![Hugging Face Space](https://img.shields.io/badge/Live%20Demo-Hugging%20Face-blue)](https://nirban2206-email-classification.hf.space/docs)
 
