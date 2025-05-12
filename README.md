@@ -105,7 +105,7 @@ uvicorn app:app --reload
 ## Author
 
 Reddi Nirban Kumar
-As part of the Akaike Technologies Email Classification Assignment
+
 
 
 
